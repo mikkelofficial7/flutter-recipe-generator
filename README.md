@@ -1,3 +1,3 @@
-# flutter_recipe_generator
+# Flutter Image Recipe Generator
 
-A new Flutter project.
+A image generator for finding new recipe using flutter
