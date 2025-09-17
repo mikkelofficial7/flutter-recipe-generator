@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Flutter Recipe Generator</string>
+	<string>Generecipe - Recipe Generator</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -45,5 +45,14 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera access to take photos.</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires photo library access to select images.</string>
+
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app requires permission to save photos to your library.</string>
 </dict>
 </plist>
