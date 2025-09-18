@@ -32,7 +32,6 @@ class _PermissionHandlerState extends State<PermissionHandler> {
 
     // additional for SDK 25 above
     var permissionRecordAudio = Permission.microphone;
-    var permissionAccessAudioVideo = [Permission.videos, Permission.audio];
 
     if (isPlatformAndroid && sdkVersion >= 33) {
       permissionStorage = Permission.photos;
@@ -43,42 +42,82 @@ class _PermissionHandlerState extends State<PermissionHandler> {
     bool cameraGranted = await permissionCamera.isGranted;
     bool storageGranted = await permissionStorage.isGranted;
 
-    if (cameraGranted && storageGranted) {
-      if (!mounted) return;
-      navigateDefaultPage();
-      return;
-    }
-
     // If denied, request them
     bool cameraRequest = await permissionCamera.request().isGranted;
     bool storageRequest = await permissionStorage.request().isGranted;
 
-    if (cameraRequest && storageRequest) {
-      setState(() {
-        statusMessage = Wording.permissionGranted;
-        buttonStatusMessage = Wording.giveAccessSuccess;
-      });
-      navigateDefaultPage();
-    } else {
-      // Check if permanently denied
-      bool cameraPermanentlyDenied = await permissionCamera.isPermanentlyDenied;
-      bool storagePermanentlyDenied =
-          await permissionStorage.isPermanentlyDenied;
+    // Check if permanently denied
+    bool cameraPermanentlyDenied = await permissionCamera.isPermanentlyDenied;
+    bool storagePermanentlyDenied = await permissionStorage.isPermanentlyDenied;
 
-      if (cameraPermanentlyDenied || storagePermanentlyDenied) {
+    if (isAndroidSDK35Above) {
+      bool recordAudioGranted = await permissionRecordAudio.isGranted;
+
+      if (cameraGranted && storageGranted && recordAudioGranted) {
+        if (!mounted) return;
+        navigateDefaultPage();
+        return;
+      }
+
+      bool recordAudioRequest = await permissionRecordAudio.request().isGranted;
+
+      if (cameraRequest && storageRequest && recordAudioRequest) {
         setState(() {
-          statusMessage = Wording.permissionRevokedPermanent;
-          buttonStatusMessage = Wording.goToSetting;
+          statusMessage = Wording.permissionGranted;
+          buttonStatusMessage = Wording.giveAccessSuccess;
         });
-
-        if (isUserClickGoToSetting) {
-          openAppSettings();
-        }
+        navigateDefaultPage();
       } else {
+        bool recordAudioPermanentlyDenied =
+            await permissionRecordAudio.isPermanentlyDenied;
+
+        if (cameraPermanentlyDenied ||
+            storagePermanentlyDenied ||
+            recordAudioPermanentlyDenied) {
+          setState(() {
+            statusMessage = Wording.permissionRevokedPermanent;
+            buttonStatusMessage = Wording.goToSetting;
+          });
+
+          if (isUserClickGoToSetting) {
+            openAppSettings();
+          }
+        } else {
+          setState(() {
+            statusMessage = Wording.permissionRevoked;
+            buttonStatusMessage = Wording.giveAccess;
+          });
+        }
+      }
+    } else {
+      if (cameraGranted && storageGranted) {
+        if (!mounted) return;
+        navigateDefaultPage();
+        return;
+      }
+
+      if (cameraRequest && storageRequest) {
         setState(() {
-          statusMessage = Wording.permissionRevoked;
-          buttonStatusMessage = Wording.giveAccess;
+          statusMessage = Wording.permissionGranted;
+          buttonStatusMessage = Wording.giveAccessSuccess;
         });
+        navigateDefaultPage();
+      } else {
+        if (cameraPermanentlyDenied || storagePermanentlyDenied) {
+          setState(() {
+            statusMessage = Wording.permissionRevokedPermanent;
+            buttonStatusMessage = Wording.goToSetting;
+          });
+
+          if (isUserClickGoToSetting) {
+            openAppSettings();
+          }
+        } else {
+          setState(() {
+            statusMessage = Wording.permissionRevoked;
+            buttonStatusMessage = Wording.giveAccess;
+          });
+        }
       }
     }
   }

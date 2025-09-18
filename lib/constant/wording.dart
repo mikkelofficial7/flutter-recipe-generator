@@ -11,6 +11,7 @@ class Wording {
       "Aplikasi ini membutuhkan izin anda, silakan buka halaman pengaturan ⚠️";
 
   static const String or = "atau";
+  static const String close = "Tutup";
   static const String openCamera = "Buka kamera untuk memulai";
   static const String openGallery = "Buka galeri untuk memulai";
 }

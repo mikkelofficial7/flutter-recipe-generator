@@ -19,7 +19,7 @@ class DefaultApp extends StatelessWidget {
                 height: 100,
                 child: Center(child: Text("Left")),
               )),
-          Expanded(flex: 3, child: BelowSideFragment())
+          Expanded(flex: 5, child: BelowSideFragment())
         ],
       ),
     );
@@ -51,7 +51,9 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
               onActionSelected: setAction,
             )
           : actionType == ActionState.camera
-              ? CameraView()
+              ? CameraView(
+                  onClose: setAction,
+                )
               : Text("data"),
     );
   }
@@ -126,7 +128,8 @@ class ButtonView extends StatelessWidget {
 }
 
 class CameraView extends StatefulWidget {
-  const CameraView({super.key});
+  final void Function(ActionState) onClose; // callback
+  const CameraView({super.key, required this.onClose});
 
   @override
   CameraViewState createState() => CameraViewState();
@@ -159,7 +162,62 @@ class CameraViewState extends State<CameraView> {
     }
 
     return Scaffold(
-      body: CameraPreview(_controller!),
+      body: Stack(
+        children: [
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: CameraPreview(_controller!),
+          ),
+          Container(
+            color: Colors.transparent,
+            height: double.infinity,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: ElevatedButton(
+                    onPressed: () {
+                      // capture image
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 22, 22, 22),
+                      padding: const EdgeInsets.all(15),
+                      shape: const CircleBorder(), // makes it circular
+                    ),
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.white70,
+                      size: 45,
+                    )),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(15),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
+                  backgroundColor: Colors.white, // button background
+                  foregroundColor: Colors.red, // text (and icon) color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  )),
+              onPressed: () {
+                widget.onClose(ActionState.normal);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.red,
+              ),
+              label: Text(Wording.close),
+            ),
+          )
+        ],
+      ),
     );
   }
 
