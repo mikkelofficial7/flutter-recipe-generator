@@ -1,33 +1,93 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:flutter_recipe_generator/constant/wording.dart';
 
 import 'util/device.dart';
 
-class DefaultApp extends StatelessWidget {
-  const DefaultApp({super.key});
+class DefaultApp extends StatefulWidget {
+  @override
+  State<DefaultApp> createState() => DefaultAppState();
+}
+
+class DefaultAppState extends State<DefaultApp> {
+  final List<String> listImage = [];
+
+  void setImageToList(String imagePath) {
+    setState(() {
+      listImage.add(imagePath);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
+          Expanded(flex: 1, child: UpperSideFragment(listImage: listImage)),
           Expanded(
-              flex: 1,
-              child: Container(
-                color: Colors.red,
-                height: 100,
-                child: Center(child: Text("Left")),
-              )),
-          Expanded(flex: 5, child: BelowSideFragment())
+              flex: 4,
+              child: BelowSideFragment(
+                onCaptureImage: setImageToList,
+              ))
         ],
       ),
     );
   }
 }
 
+class UpperSideFragment extends StatefulWidget {
+  final List<String> listImage;
+
+  UpperSideFragment({super.key, required this.listImage});
+
+  @override
+  State<UpperSideFragment> createState() => UpperSideFragmentState();
+}
+
+class UpperSideFragmentState extends State<UpperSideFragment> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: Colors.black87),
+      child: Container(
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: const Color.fromARGB(241, 134, 133, 133),
+            borderRadius: BorderRadius.circular(8)),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.listImage.length,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.all(10),
+              child: Image.file(
+                File(widget.listImage[index]),
+                fit: BoxFit.contain,
+                height: 100, // limit size for preview
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/*********************/
+/*********************/
+/*********************/
+/*********************/
+
 class BelowSideFragment extends StatefulWidget {
-  const BelowSideFragment({super.key});
+  final void Function(String) onCaptureImage;
+
+  const BelowSideFragment({super.key, required this.onCaptureImage});
 
   @override
   State<BelowSideFragment> createState() => BelowSideFragmentState();
@@ -42,10 +102,14 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
     });
   }
 
+  void capturedImage(String imagePath) {
+    widget.onCaptureImage(imagePath);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity, // match parent width
+      width: double.infinity,
       child: actionType == ActionState.normal
           ? ButtonView(
               onActionSelected: setAction,
@@ -53,6 +117,7 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
           : actionType == ActionState.camera
               ? CameraView(
                   onClose: setAction,
+                  onCapturedImage: capturedImage,
                 )
               : Text("data"),
     );
@@ -66,62 +131,68 @@ class ButtonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueGrey,
-      child: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(
-                        255, 3, 70, 125), // button background
-                    foregroundColor: Colors.yellow, // text (and icon) color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    )),
-                onPressed: () {
-                  onActionSelected(ActionState.camera);
-                },
-                icon: Icon(
-                  Icons.camera_alt,
-                  color: Colors.yellow,
+      decoration: BoxDecoration(color: Colors.black87),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.blueGrey,
+            borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(8), right: Radius.circular(8))),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(
+                          255, 3, 70, 125), // button background
+                      foregroundColor: Colors.yellow, // text (and icon) color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      )),
+                  onPressed: () {
+                    onActionSelected(ActionState.camera);
+                  },
+                  icon: Icon(
+                    Icons.camera_alt,
+                    color: Colors.yellow,
+                  ),
+                  label: Text(Wording.openCamera),
                 ),
-                label: Text(Wording.openCamera),
               ),
             ),
-          ),
-          Expanded(
-              flex: 0,
-              child: Text(
-                Wording.or,
-                style: TextStyle(color: Colors.white70),
-              )),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(
-                        255, 123, 15, 7), // button background
-                    foregroundColor: Colors.yellow, // text (and icon) color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    )),
-                onPressed: () {
-                  onActionSelected(ActionState.gallery);
-                },
-                icon: Icon(
-                  Icons.image,
-                  color: Colors.yellow,
+            Expanded(
+                flex: 0,
+                child: Text(
+                  Wording.or,
+                  style: TextStyle(color: Colors.white70),
+                )),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(
+                          255, 123, 15, 7), // button background
+                      foregroundColor: Colors.yellow, // text (and icon) color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      )),
+                  onPressed: () {
+                    onActionSelected(ActionState.gallery);
+                  },
+                  icon: Icon(
+                    Icons.image,
+                    color: Colors.yellow,
+                  ),
+                  label: Text(Wording.openGallery),
                 ),
-                label: Text(Wording.openGallery),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -129,7 +200,10 @@ class ButtonView extends StatelessWidget {
 
 class CameraView extends StatefulWidget {
   final void Function(ActionState) onClose; // callback
-  const CameraView({super.key, required this.onClose});
+  final void Function(String) onCapturedImage; // callback
+
+  const CameraView(
+      {super.key, required this.onClose, required this.onCapturedImage});
 
   @override
   CameraViewState createState() => CameraViewState();
@@ -138,6 +212,7 @@ class CameraView extends StatefulWidget {
 class CameraViewState extends State<CameraView> {
   CameraController? _controller;
   List<CameraDescription>? _cameras;
+  bool? isSuccessCapture;
 
   @override
   void initState() {
@@ -152,6 +227,23 @@ class CameraViewState extends State<CameraView> {
 
     if (mounted) {
       setState(() {});
+    }
+  }
+
+  Future<void> takePicture() async {
+    try {
+      final image = await _controller!.takePicture();
+
+      // Save to app documents directory
+      final directory = await getApplicationDocumentsDirectory();
+      final imagePath = join(directory.path, '${DateTime.now()}.png');
+      await image.saveTo(imagePath);
+
+      if (!mounted) return;
+      widget.onCapturedImage(imagePath);
+      SnackBar(content: Text('Image saved to $imagePath'));
+    } catch (e) {
+      SnackBar(content: Text('Error capture: $e'));
     }
   }
 
@@ -175,10 +267,10 @@ class CameraViewState extends State<CameraView> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 60),
+                padding: const EdgeInsets.only(bottom: 40),
                 child: ElevatedButton(
                     onPressed: () {
-                      // capture image
+                      takePicture();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 22, 22, 22),

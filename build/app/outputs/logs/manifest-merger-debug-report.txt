@@ -34,6 +34,7 @@ MERGED from [:camera_android_camerax] /Users/ewidev6/Desktop/flutter-recipe-gene
 MERGED from [:device_info_plus] /Users/ewidev6/Desktop/flutter-recipe-generator/build/device_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_native_splash] /Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_plugin_android_lifecycle] /Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider_android] /Users/ewidev6/Desktop/flutter-recipe-generator/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:permission_handler_android] /Users/ewidev6/Desktop/flutter-recipe-generator/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.camera:camera-video:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/f7ffa3c373a49acde62a6d045d6d9eb0/transformed/jetified-camera-video-1.4.1/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.camera:camera-lifecycle:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/68634c46605b1b204bcb0eac48ac17a0/transformed/jetified-camera-lifecycle-1.4.1/AndroidManifest.xml:2:1-7:12
@@ -141,6 +142,8 @@ MERGED from [:flutter_native_splash] /Users/ewidev6/Desktop/flutter-recipe-gener
 MERGED from [:flutter_native_splash] /Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_native_splash/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] /Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] /Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] /Users/ewidev6/Desktop/flutter-recipe-generator/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] /Users/ewidev6/Desktop/flutter-recipe-generator/build/path_provider_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:permission_handler_android] /Users/ewidev6/Desktop/flutter-recipe-generator/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:permission_handler_android] /Users/ewidev6/Desktop/flutter-recipe-generator/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [androidx.camera:camera-video:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/f7ffa3c373a49acde62a6d045d6d9eb0/transformed/jetified-camera-video-1.4.1/AndroidManifest.xml:5:5-44
