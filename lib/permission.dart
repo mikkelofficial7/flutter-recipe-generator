@@ -25,48 +25,60 @@ class _PermissionHandlerState extends State<PermissionHandler> {
     // Camera
     var permissionCamera = Permission.camera;
 
-    // Gallery / storage
-    var permissionStorage = sdkVersion < 33 && isPlatformAndroid
-        ? Permission.storage
-        : Permission.photos;
+    // Storage & Gallery
+    var permissionStorage = Permission.storage;
 
-    if (await permissionCamera.status.isGranted &&
-        await permissionStorage.status.isGranted) {
-      // permission permanent granted
+    var isAndroidSDK35Above = false;
+
+    // additional for SDK 25 above
+    var permissionRecordAudio = Permission.microphone;
+    var permissionAccessAudioVideo = [Permission.videos, Permission.audio];
+
+    if (isPlatformAndroid && sdkVersion >= 33) {
+      permissionStorage = Permission.photos;
+      isAndroidSDK35Above = true;
+    }
+
+    // Check camera + all storage permissions
+    bool cameraGranted = await permissionCamera.isGranted;
+    bool storageGranted = await permissionStorage.isGranted;
+
+    if (cameraGranted && storageGranted) {
       if (!mounted) return;
-
       navigateDefaultPage();
       return;
+    }
+
+    // If denied, request them
+    bool cameraRequest = await permissionCamera.request().isGranted;
+    bool storageRequest = await permissionStorage.request().isGranted;
+
+    if (cameraRequest && storageRequest) {
+      setState(() {
+        statusMessage = Wording.permissionGranted;
+        buttonStatusMessage = Wording.giveAccessSuccess;
+      });
+      navigateDefaultPage();
     } else {
-      if (await permissionCamera.status.isDenied ||
-          await permissionStorage.status.isDenied) {
-        // await permission camera and storage
-        var awaitCamera = await permissionCamera.request().isGranted;
-        var awaitStorage = await permissionStorage.request().isGranted;
+      // Check if permanently denied
+      bool cameraPermanentlyDenied = await permissionCamera.isPermanentlyDenied;
+      bool storagePermanentlyDenied =
+          await permissionStorage.isPermanentlyDenied;
 
-        // Ask the user
-        if (awaitCamera && awaitStorage) {
-          setState(() {
-            statusMessage = Wording.permissionGranted; // permission granted
-            buttonStatusMessage = Wording.giveAccessSuccess;
-          });
-
-          navigateDefaultPage();
-        } else {
-          setState(() {
-            statusMessage = Wording.permissionRevoked; // permission revoked
-            buttonStatusMessage = Wording.giveAccess;
-          });
-        }
-      } else {
+      if (cameraPermanentlyDenied || storagePermanentlyDenied) {
         setState(() {
-          statusMessage = Wording
-              .permissionRevokedPermanent; // permission revoked permanent
+          statusMessage = Wording.permissionRevokedPermanent;
           buttonStatusMessage = Wording.goToSetting;
         });
+
         if (isUserClickGoToSetting) {
           openAppSettings();
         }
+      } else {
+        setState(() {
+          statusMessage = Wording.permissionRevoked;
+          buttonStatusMessage = Wording.giveAccess;
+        });
       }
     }
   }

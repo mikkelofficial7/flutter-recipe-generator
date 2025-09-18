@@ -9,4 +9,8 @@ class Wording {
   static const String giveAccessSuccess = "Beri akses berhasil";
   static const String permissionRevokedPermanent =
       "Aplikasi ini membutuhkan izin anda, silakan buka halaman pengaturan ⚠️";
+
+  static const String or = "atau";
+  static const String openCamera = "Buka kamera untuk memulai";
+  static const String openGallery = "Buka galeri untuk memulai";
 }

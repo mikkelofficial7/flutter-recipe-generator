@@ -11,3 +11,9 @@ Future<int> detectAndroidSdk() async {
     return -1;
   }
 }
+
+enum ActionState {
+  normal,
+  camera,
+  gallery,
+}
