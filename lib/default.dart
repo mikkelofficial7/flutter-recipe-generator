@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -24,12 +25,23 @@ class DefaultAppState extends State<DefaultApp> {
     });
   }
 
+  void removeImage(int index) {
+    setState(() {
+      listImage.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(flex: 1, child: UpperSideFragment(listImage: listImage)),
+          Expanded(
+              flex: 1,
+              child: UpperSideFragment(
+                listImage: listImage,
+                onRemoveImage: removeImage,
+              )),
           Expanded(
               flex: 4,
               child: BelowSideFragment(
@@ -42,9 +54,11 @@ class DefaultAppState extends State<DefaultApp> {
 }
 
 class UpperSideFragment extends StatefulWidget {
+  final void Function(int) onRemoveImage;
   final List<String> listImage;
 
-  UpperSideFragment({super.key, required this.listImage});
+  UpperSideFragment(
+      {super.key, required this.listImage, required this.onRemoveImage});
 
   @override
   State<UpperSideFragment> createState() => UpperSideFragmentState();
@@ -64,12 +78,38 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
           scrollDirection: Axis.horizontal,
           itemCount: widget.listImage.length,
           itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.all(10),
-              child: Image.file(
-                File(widget.listImage[index]),
-                fit: BoxFit.contain,
-                height: 100, // limit size for preview
+            return Center(
+              child: Stack(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.file(
+                        File(widget.listImage[index]),
+                        fit: BoxFit.cover,
+                        height: 150,
+                        width: 150,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 15,
+                    right: 5,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Colors.black54, // semi-transparent background
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(8),
+                      ),
+                      onPressed: () {
+                        widget.onRemoveImage(index);
+                      },
+                      child: const Icon(Icons.close, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             );
           },
@@ -241,9 +281,8 @@ class CameraViewState extends State<CameraView> {
 
       if (!mounted) return;
       widget.onCapturedImage(imagePath);
-      SnackBar(content: Text('Image saved to $imagePath'));
     } catch (e) {
-      SnackBar(content: Text('Error capture: $e'));
+      log(e.toString());
     }
   }
 
