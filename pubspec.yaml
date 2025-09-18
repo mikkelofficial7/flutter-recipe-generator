@@ -26,10 +26,12 @@ flutter:
   assets:
   - assets/images/
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/images/splash.jpg"
+  adaptive_icon_foreground: "assets/images/splash.jpg"
+  adaptive_icon_background: "#121212"
 
 flutter_native_splash:
   android: true
