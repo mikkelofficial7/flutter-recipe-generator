@@ -140,6 +140,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "file_picker",
+      "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/file_picker-8.3.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/ewidev6/Documents/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -458,7 +464,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-09-18T07:45:37.081959Z",
+  "generated": "2025-09-19T08:44:40.907229Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/ewidev6/Documents/flutter",

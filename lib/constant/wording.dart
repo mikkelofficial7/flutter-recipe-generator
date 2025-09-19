@@ -12,6 +12,9 @@ class Wording {
 
   static const String or = "atau";
   static const String close = "Tutup";
+  static const String upload = "Unggah gambar";
   static const String openCamera = "Buka kamera untuk memulai";
   static const String openGallery = "Buka galeri untuk memulai";
+  static const String openGalleryShow = "Buka galeri";
+  static const String noImageChoose = "Tidak ada gambar yang dipilih";
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -45,7 +46,7 @@ class DefaultAppState extends State<DefaultApp> {
           Expanded(
               flex: 4,
               child: BelowSideFragment(
-                onCaptureImage: setImageToList,
+                onImageGet: setImageToList,
               ))
         ],
       ),
@@ -88,8 +89,8 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
                       child: Image.file(
                         File(widget.listImage[index]),
                         fit: BoxFit.cover,
-                        height: 150,
-                        width: 150,
+                        height: 120,
+                        width: 120,
                       ),
                     ),
                   ),
@@ -125,9 +126,9 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
 /*********************/
 
 class BelowSideFragment extends StatefulWidget {
-  final void Function(String) onCaptureImage;
+  final void Function(String) onImageGet;
 
-  const BelowSideFragment({super.key, required this.onCaptureImage});
+  const BelowSideFragment({super.key, required this.onImageGet});
 
   @override
   State<BelowSideFragment> createState() => BelowSideFragmentState();
@@ -142,8 +143,8 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
     });
   }
 
-  void capturedImage(String imagePath) {
-    widget.onCaptureImage(imagePath);
+  void onImageGet(String imagePath) {
+    widget.onImageGet(imagePath);
   }
 
   @override
@@ -157,9 +158,16 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
           : actionType == ActionState.camera
               ? CameraView(
                   onClose: setAction,
-                  onCapturedImage: capturedImage,
+                  onCapturedImage: onImageGet,
                 )
-              : Text("data"),
+              : GalleryView(
+                  onClose: setAction,
+                  onSelectedImage: (imageLists) {
+                    for (final image in imageLists) {
+                      onImageGet(image);
+                    }
+                  },
+                ),
     );
   }
 }
@@ -356,5 +364,139 @@ class CameraViewState extends State<CameraView> {
   void dispose() {
     _controller?.dispose();
     super.dispose();
+  }
+}
+
+class GalleryView extends StatefulWidget {
+  final void Function(ActionState) onClose; // callback
+  final void Function(List<String>) onSelectedImage; // callback
+
+  const GalleryView(
+      {super.key, required this.onClose, required this.onSelectedImage});
+
+  @override
+  GalleryViewState createState() => GalleryViewState();
+}
+
+class GalleryViewState extends State<GalleryView> {
+  List<File> imageSelected = [];
+
+  Future<void> pickImageGallery() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      setState(() {
+        imageSelected.addAll(
+          result.paths.map((path) => File(path!)).toList(),
+        );
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 70),
+            child: imageSelected.isEmpty
+                ? Center(child: Text(Wording.noImageChoose))
+                : GridView.builder(
+                    padding: EdgeInsets.all(10),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                    ),
+                    itemCount: imageSelected.length,
+                    itemBuilder: (context, index) {
+                      return Image.file(imageSelected[index],
+                          fit: BoxFit.cover);
+                    },
+                  ),
+          ),
+          Container(
+            color: Colors.transparent,
+            margin: EdgeInsets.only(bottom: 40),
+            height: double.infinity,
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black87, // button background
+                    foregroundColor: Colors.white70, // text (and icon) color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    )),
+                onPressed: () {
+                  pickImageGallery();
+                },
+                icon: Icon(
+                  Icons.image,
+                  color: Colors.white70,
+                ),
+                label: Text(Wording.openGalleryShow),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(15),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
+                  backgroundColor: Colors.white, // button background
+                  foregroundColor: Colors.red, // text (and icon) color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  )),
+              onPressed: () {
+                widget.onClose(ActionState.normal);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.red,
+              ),
+              label: Text(Wording.close),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              margin: EdgeInsets.all(15),
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
+                    backgroundColor: Colors.white, // button background
+                    foregroundColor: Colors.blueAccent, // text (and icon) color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    )),
+                onPressed: () {
+                  widget.onSelectedImage(
+                      imageSelected.map((file) => file.path).toList());
+                  widget.onClose(ActionState.normal);
+                },
+                icon: Icon(
+                  Icons.file_upload,
+                  color: Colors.blueAccent,
+                ),
+                label: Text(Wording.upload),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

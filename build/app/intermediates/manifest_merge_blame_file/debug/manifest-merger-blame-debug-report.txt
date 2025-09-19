@@ -58,153 +58,163 @@
 36-->/Users/ewidev6/Desktop/flutter-recipe-generator/android/app/src/main/AndroidManifest.xml:51:13-50
 36-->/Users/ewidev6/Desktop/flutter-recipe-generator/android/app/src/main/AndroidManifest.xml:51:19-48
 37        </intent>
-38    </queries>
-39
-40    <uses-feature android:name="android.hardware.camera.any" />
-40-->[:camera_android_camerax] /Users/ewidev6/Desktop/flutter-recipe-generator/build/camera_android_camerax/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-64
-40-->[:camera_android_camerax] /Users/ewidev6/Desktop/flutter-recipe-generator/build/camera_android_camerax/intermediates/merged_manifest/debug/AndroidManifest.xml:7:19-61
-41
-42    <permission
-42-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
-43        android:name="com.example.flutter_recipe_generator.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-43-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
-44        android:protectionLevel="signature" />
-44-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
-45
-46    <uses-permission android:name="com.example.flutter_recipe_generator.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-46-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
-46-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
-47
-48    <application
-49        android:name="android.app.Application"
-50        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-50-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
-51        android:debuggable="true"
-52        android:extractNativeLibs="true"
-53        android:icon="@mipmap/ic_launcher"
-54        android:label="Generecipe" >
-55        <activity
-56            android:name="com.example.flutter_recipe_generator.MainActivity"
-57            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-58            android:exported="true"
-59            android:hardwareAccelerated="true"
-60            android:launchMode="singleTop"
-61            android:taskAffinity=""
-62            android:theme="@style/LaunchTheme"
-63            android:windowSoftInputMode="adjustResize" >
-64
-65            <!--
-66                 Specifies an Android theme to apply to this Activity as soon as
-67                 the Android process has started. This theme is visible to the user
-68                 while the Flutter UI initializes. After that, this theme continues
-69                 to determine the Window background behind the Flutter UI.
-70            -->
-71            <meta-data
-72                android:name="io.flutter.embedding.android.NormalTheme"
-73                android:resource="@style/NormalTheme" />
-74
-75            <intent-filter>
-76                <action android:name="android.intent.action.MAIN" />
-77
-78                <category android:name="android.intent.category.LAUNCHER" />
-79            </intent-filter>
-80        </activity>
-81        <!--
-82             Don't delete the meta-data below.
-83             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-84        -->
-85        <meta-data
-86            android:name="flutterEmbedding"
-87            android:value="2" />
-88
-89        <service
-89-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:24:9-33:19
-90            android:name="androidx.camera.core.impl.MetadataHolderService"
-90-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:25:13-75
-91            android:enabled="false"
-91-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:26:13-36
-92            android:exported="false" >
-92-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:27:13-37
-93            <meta-data
-93-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:30:13-32:89
-94                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
-94-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:31:17-103
-95                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
-95-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:32:17-86
-96        </service>
-97
-98        <uses-library
-98-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:23:9-25:40
-99            android:name="androidx.window.extensions"
-99-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:24:13-54
-100            android:required="false" />
-100-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:25:13-37
-101        <uses-library
-101-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:26:9-28:40
-102            android:name="androidx.window.sidecar"
-102-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:27:13-51
-103            android:required="false" />
-103-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:28:13-37
-104
-105        <provider
-105-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
-106            android:name="androidx.startup.InitializationProvider"
-106-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:25:13-67
-107            android:authorities="com.example.flutter_recipe_generator.androidx-startup"
-107-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:26:13-68
-108            android:exported="false" >
-108-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:27:13-37
-109            <meta-data
-109-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
-110                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-110-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
-111                android:value="androidx.startup" />
-111-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
-112            <meta-data
-112-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
-113                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-113-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
-114                android:value="androidx.startup" />
-114-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
-115        </provider>
-116
-117        <receiver
-117-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
-118            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-118-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
-119            android:directBootAware="false"
-119-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
-120            android:enabled="true"
-120-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
-121            android:exported="true"
-121-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
-122            android:permission="android.permission.DUMP" >
-122-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
-123            <intent-filter>
-123-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
-124                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-124-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-124-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
-125            </intent-filter>
-126            <intent-filter>
-126-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
-127                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-127-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-127-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
-128            </intent-filter>
-129            <intent-filter>
-129-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
-130                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-130-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-130-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
-131            </intent-filter>
-132            <intent-filter>
-132-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
-133                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-133-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-133-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
-134            </intent-filter>
-135        </receiver>
-136    </application>
-137
-138</manifest>
+38        <intent>
+38-->[:file_picker] /Users/ewidev6/Desktop/flutter-recipe-generator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:8:9-12:18
+39            <action android:name="android.intent.action.GET_CONTENT" />
+39-->[:file_picker] /Users/ewidev6/Desktop/flutter-recipe-generator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-72
+39-->[:file_picker] /Users/ewidev6/Desktop/flutter-recipe-generator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:21-69
+40
+41            <data android:mimeType="*/*" />
+41-->/Users/ewidev6/Desktop/flutter-recipe-generator/android/app/src/main/AndroidManifest.xml:51:13-50
+41-->/Users/ewidev6/Desktop/flutter-recipe-generator/android/app/src/main/AndroidManifest.xml:51:19-48
+42        </intent>
+43    </queries>
+44
+45    <uses-feature android:name="android.hardware.camera.any" />
+45-->[:camera_android_camerax] /Users/ewidev6/Desktop/flutter-recipe-generator/build/camera_android_camerax/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-64
+45-->[:camera_android_camerax] /Users/ewidev6/Desktop/flutter-recipe-generator/build/camera_android_camerax/intermediates/merged_manifest/debug/AndroidManifest.xml:7:19-61
+46
+47    <permission
+47-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+48        android:name="com.example.flutter_recipe_generator.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+48-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+49        android:protectionLevel="signature" />
+49-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+50
+51    <uses-permission android:name="com.example.flutter_recipe_generator.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+51-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+51-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+52
+53    <application
+54        android:name="android.app.Application"
+55        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+55-->[androidx.core:core:1.13.1] /Users/ewidev6/.gradle/caches/transforms-3/4cefa050b0c4ea9b1f45909d19944071/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+56        android:debuggable="true"
+57        android:extractNativeLibs="true"
+58        android:icon="@mipmap/ic_launcher"
+59        android:label="Generecipe" >
+60        <activity
+61            android:name="com.example.flutter_recipe_generator.MainActivity"
+62            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+63            android:exported="true"
+64            android:hardwareAccelerated="true"
+65            android:launchMode="singleTop"
+66            android:taskAffinity=""
+67            android:theme="@style/LaunchTheme"
+68            android:windowSoftInputMode="adjustResize" >
+69
+70            <!--
+71                 Specifies an Android theme to apply to this Activity as soon as
+72                 the Android process has started. This theme is visible to the user
+73                 while the Flutter UI initializes. After that, this theme continues
+74                 to determine the Window background behind the Flutter UI.
+75            -->
+76            <meta-data
+77                android:name="io.flutter.embedding.android.NormalTheme"
+78                android:resource="@style/NormalTheme" />
+79
+80            <intent-filter>
+81                <action android:name="android.intent.action.MAIN" />
+82
+83                <category android:name="android.intent.category.LAUNCHER" />
+84            </intent-filter>
+85        </activity>
+86        <!--
+87             Don't delete the meta-data below.
+88             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+89        -->
+90        <meta-data
+91            android:name="flutterEmbedding"
+92            android:value="2" />
+93
+94        <service
+94-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:24:9-33:19
+95            android:name="androidx.camera.core.impl.MetadataHolderService"
+95-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:25:13-75
+96            android:enabled="false"
+96-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:26:13-36
+97            android:exported="false" >
+97-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:27:13-37
+98            <meta-data
+98-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:30:13-32:89
+99                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+99-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:31:17-103
+100                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+100-->[androidx.camera:camera-camera2:1.4.1] /Users/ewidev6/.gradle/caches/transforms-3/927137add7e7fa60ce5647419c9ec04f/transformed/jetified-camera-camera2-1.4.1/AndroidManifest.xml:32:17-86
+101        </service>
+102
+103        <uses-library
+103-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:23:9-25:40
+104            android:name="androidx.window.extensions"
+104-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:24:13-54
+105            android:required="false" />
+105-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:25:13-37
+106        <uses-library
+106-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:26:9-28:40
+107            android:name="androidx.window.sidecar"
+107-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:27:13-51
+108            android:required="false" />
+108-->[androidx.window:window:1.2.0] /Users/ewidev6/.gradle/caches/transforms-3/b61292485483c7499e83c4f5c6f9bd1a/transformed/jetified-window-1.2.0/AndroidManifest.xml:28:13-37
+109
+110        <provider
+110-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+111            android:name="androidx.startup.InitializationProvider"
+111-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:25:13-67
+112            android:authorities="com.example.flutter_recipe_generator.androidx-startup"
+112-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:26:13-68
+113            android:exported="false" >
+113-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:27:13-37
+114            <meta-data
+114-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+115                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+115-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+116                android:value="androidx.startup" />
+116-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/ewidev6/.gradle/caches/transforms-3/a4def40035927cb6d856303427b50933/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+117            <meta-data
+117-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+118                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+118-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+119                android:value="androidx.startup" />
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+120        </provider>
+121
+122        <receiver
+122-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+123            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+123-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+124            android:directBootAware="false"
+124-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+125            android:enabled="true"
+125-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+126            android:exported="true"
+126-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+127            android:permission="android.permission.DUMP" >
+127-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+128            <intent-filter>
+128-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+129                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+129-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+129-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+130            </intent-filter>
+131            <intent-filter>
+131-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+132                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+133            </intent-filter>
+134            <intent-filter>
+134-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+135                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+136            </intent-filter>
+137            <intent-filter>
+137-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+138                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+138-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+138-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/ewidev6/.gradle/caches/transforms-3/ec9fdb662d7f540d2603f340c7b5ab14/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+139            </intent-filter>
+140        </receiver>
+141    </application>
+142
+143</manifest>

@@ -1,4 +1,4 @@
-#Thu Sep 18 16:20:50 WIB 2025
+#Fri Sep 19 16:22:26 WIB 2025
 base.0=/Users/ewidev6/Desktop/flutter-recipe-generator/build/app/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/ewidev6/Desktop/flutter-recipe-generator/build/app/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
 base.2=/Users/ewidev6/Desktop/flutter-recipe-generator/build/app/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
