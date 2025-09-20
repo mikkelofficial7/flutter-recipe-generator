@@ -18,3 +18,7 @@ class Wording {
   static const String openGalleryShow = "Buka galeri";
   static const String noImageChoose = "Tidak ada gambar yang dipilih";
 }
+
+class Variable {
+  static const double defaultMarginBottom = 50;
+}
