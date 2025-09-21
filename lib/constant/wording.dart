@@ -18,6 +18,7 @@ class Wording {
   static const String openGalleryShow = "Buka galeri";
   static const String noImageChoose = "Tidak ada gambar yang dipilih";
   static const String maxImage = "You can add up to 5 images";
+  static const String analystMaterial = "Analisa bahan baku";
 }
 
 class Variable {

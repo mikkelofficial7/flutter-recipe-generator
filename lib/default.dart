@@ -21,6 +21,19 @@ class DefaultApp extends StatefulWidget {
 class DefaultAppState extends State<DefaultApp> {
   final List<String> listImage = [];
   bool isMaxImageReached = false;
+  late double defaultMarginTop;
+
+  @override
+  void initState() {
+    super.initState();
+    runAnimation();
+  }
+
+  void runAnimation() {
+    setState(() {
+      defaultMarginTop = listImage.isEmpty ? 40 : 350;
+    });
+  }
 
   void setImageToList(String imagePath) {
     setState(() {
@@ -33,6 +46,7 @@ class DefaultAppState extends State<DefaultApp> {
         listImage.clear();
         listImage.addAll(listOfFirstItems);
       }
+      runAnimation();
     });
   }
 
@@ -41,6 +55,7 @@ class DefaultAppState extends State<DefaultApp> {
       showToast("Item removed successfully..", Colors.red);
       listImage.removeAt(index);
       isMaxImageReached = listImage.length >= Variable.maxImageUpload;
+      runAnimation();
     });
   }
 
@@ -59,20 +74,23 @@ class DefaultAppState extends State<DefaultApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-              flex: 1,
-              child: UpperSideFragment(
-                listImage: listImage,
-                onRemoveImage: removeImage,
-              )),
-          Expanded(
-              flex: 4,
-              child: BelowSideFragment(
-                  onImageGet: setImageToList,
-                  isMaxImageReached: isMaxImageReached))
-        ],
+      body: Container(
+        color: Colors.black87,
+        child: Stack(
+          children: [
+            Container(
+                margin: EdgeInsets.only(top: 40),
+                height: 300,
+                child: UpperSideFragment(
+                  listImage: listImage,
+                  onRemoveImage: removeImage,
+                )),
+            BelowSideFragment(
+                onImageGet: setImageToList,
+                isMaxImageReached: isMaxImageReached,
+                defaultMarginTop: defaultMarginTop)
+          ],
+        ),
       ),
     );
   }
@@ -94,7 +112,6 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(color: Colors.black87),
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -129,7 +146,7 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
                               child: Image.file(
                                 File(widget.listImage[index]),
                                 fit: BoxFit.cover,
-                                height: 120,
+                                height: 150,
                                 width: 120,
                               ),
                             ),
@@ -155,6 +172,36 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
                       ),
                     );
                   },
+                )),
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 5),
+                  child: Opacity(
+                    opacity: widget.listImage.isEmpty ? 0.5 : 1.0,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
+                          ),
+                          backgroundColor: Colors.black54, // button background
+                          foregroundColor: Colors.grey, // text (and icon) color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )),
+                      onPressed: () {
+                        if (widget.listImage.isNotEmpty) {
+                          // hit here
+                        }
+                      },
+                      icon: Icon(
+                        Icons.hourglass_bottom,
+                        color: Colors.grey,
+                      ),
+                      label: Text(Wording.analystMaterial),
+                    ),
+                  ),
                 ))
           ],
         ),
@@ -166,12 +213,14 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
 class BelowSideFragment extends StatefulWidget {
   final void Function(String) onImageGet;
   final bool isMaxImageReached;
+  final double defaultMarginTop;
 
   const BelowSideFragment({
-    super.key,
+    Key? key,
     required this.onImageGet,
     required this.isMaxImageReached,
-  });
+    required this.defaultMarginTop,
+  }) : super(key: key);
 
   @override
   State<BelowSideFragment> createState() => BelowSideFragmentState();
@@ -192,25 +241,30 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: actionType == ActionState.gallery
-          ? GalleryView(
-              onClose: setAction,
-              onSelectedImage: (imageLists) {
-                for (final image in imageLists) {
-                  onImageGet(image);
-                }
-              },
-            )
-          : actionType == ActionState.camera
-              ? CameraView(
-                  onClose: setAction,
-                  onCapturedImage: onImageGet,
-                )
-              : ButtonView(
-                  onActionSelected: setAction,
-                  isMaxImageReached: widget.isMaxImageReached),
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+      margin: EdgeInsets.only(top: widget.defaultMarginTop),
+      child: SizedBox(
+        width: double.infinity,
+        child: actionType == ActionState.gallery
+            ? GalleryView(
+                onClose: setAction,
+                onSelectedImage: (imageLists) {
+                  for (final image in imageLists) {
+                    onImageGet(image);
+                  }
+                },
+              )
+            : actionType == ActionState.camera
+                ? CameraView(
+                    onClose: setAction,
+                    onCapturedImage: onImageGet,
+                  )
+                : ButtonView(
+                    onActionSelected: setAction,
+                    isMaxImageReached: widget.isMaxImageReached),
+      ),
     );
   }
 }
