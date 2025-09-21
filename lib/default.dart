@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -23,6 +24,7 @@ class DefaultAppState extends State<DefaultApp> {
 
   void setImageToList(String imagePath) {
     setState(() {
+      showToast("Item uploaded successfully..", Colors.green);
       listImage.add(imagePath);
       isMaxImageReached = listImage.length >= Variable.maxImageUpload;
 
@@ -36,9 +38,22 @@ class DefaultAppState extends State<DefaultApp> {
 
   void removeImage(int index) {
     setState(() {
+      showToast("Item removed successfully..", Colors.red);
       listImage.removeAt(index);
       isMaxImageReached = listImage.length >= Variable.maxImageUpload;
     });
+  }
+
+  void showToast(String message, Color bgColor) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: bgColor,
+      textColor: const Color(0xFFFFFFFF),
+      fontSize: 16.0,
+    );
   }
 
   @override
