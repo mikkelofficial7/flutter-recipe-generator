@@ -1,16 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe_generator/recipe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter_recipe_generator/constant/wording.dart';
 
+import 'gemini_model/gemini_request.dart';
 import 'util/device.dart';
 
 class DefaultApp extends StatefulWidget {
@@ -110,6 +111,43 @@ class UpperSideFragment extends StatefulWidget {
 }
 
 class UpperSideFragmentState extends State<UpperSideFragment> {
+  bool canClickSubmit = true;
+  bool isLoading = false;
+
+  Future<void> sendToGemini() async {
+    setState(() {
+      isLoading = true;
+      canClickSubmit = false;
+    });
+
+    var listBase64 = await Future.wait(
+      widget.listImage.map((path) async {
+        return await convertImageToBase64(File(path));
+      }),
+    );
+
+    await sendAndAnalyzeWithGemini(
+      listBase64,
+      (result) {
+        if (kDebugMode) {
+          print("✅ Success generate data!");
+        }
+
+        setState(() {
+          isLoading = false;
+          canClickSubmit = true;
+        });
+        var response = extractResponse(result);
+        navigateRecipePage(response);
+      },
+      (error) {
+        if (kDebugMode) {
+          print("❌ Failed: $error");
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -179,37 +217,63 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
                 )),
             Align(
                 alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 5),
-                  child: Opacity(
-                    opacity: widget.listImage.isEmpty ? 0.5 : 1.0,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 10,
+                child: isLoading == true
+                    ? Padding(
+                        padding: EdgeInsets.all(10),
+                        child: SizedBox(
+                          height: 10,
+                          width: 100,
+                          child: LinearProgressIndicator(
+                            color: Colors.yellow,
+                            backgroundColor:
+                                const Color.fromARGB(255, 12, 132, 192),
                           ),
-                          backgroundColor: Colors.black54, // button background
-                          foregroundColor: Colors.grey, // text (and icon) color
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          )),
-                      onPressed: () {
-                        if (widget.listImage.isNotEmpty) {
-                          // hit here
-                        }
-                      },
-                      icon: Icon(
-                        Icons.hourglass_bottom,
-                        color: Colors.grey,
-                      ),
-                      label: Text(Wording.analystMaterial),
-                    ),
-                  ),
-                ))
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(right: 5),
+                        child: Opacity(
+                          opacity: widget.listImage.isEmpty ? 0.5 : 1.0,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 10,
+                                ),
+                                backgroundColor:
+                                    Colors.black54, // button background
+                                foregroundColor:
+                                    Colors.grey, // text (and icon) color
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                )),
+                            onPressed: () async {
+                              if (widget.listImage.isNotEmpty &&
+                                  canClickSubmit) {
+                                sendToGemini();
+                              }
+                            },
+                            icon: Icon(
+                              Icons.hourglass_bottom,
+                              color: Colors.grey,
+                            ),
+                            label: Text(Wording.analystMaterial),
+                          ),
+                        ),
+                      ))
           ],
         ),
       ),
+    );
+  }
+
+  void navigateRecipePage(String response) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => RecipePage(
+                recipe: response,
+              )),
     );
   }
 }
@@ -425,7 +489,7 @@ class CameraViewState extends State<CameraView> {
 
       // Save to app documents directory
       final directory = await getApplicationDocumentsDirectory();
-      final imagePath = join(directory.path, '${DateTime.now()}.png');
+      final imagePath = path.join(directory.path, '${DateTime.now()}.png');
       await image.saveTo(imagePath);
 
       if (!mounted) return;
@@ -434,7 +498,7 @@ class CameraViewState extends State<CameraView> {
         isTakePicture = true;
       });
     } catch (e) {
-      log(e.toString());
+      print(e.toString());
     }
   }
 

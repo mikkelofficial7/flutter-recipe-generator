@@ -20,6 +20,8 @@ class Wording {
   static const String noImageChoose = "Tidak ada gambar yang dipilih";
   static const String maxImage = "You can add up to 5 images";
   static const String analystMaterial = "Analisa bahan baku";
+  static const String detailRecipe = "Rincian Resep";
+  static const String generateResult = "Hasil generate";
 }
 
 class Variable {
