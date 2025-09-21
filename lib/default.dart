@@ -24,14 +24,20 @@ class DefaultAppState extends State<DefaultApp> {
   void setImageToList(String imagePath) {
     setState(() {
       listImage.add(imagePath);
-      isMaxImageReached = listImage.length < 5;
+      isMaxImageReached = listImage.length >= Variable.maxImageUpload;
+
+      if (listImage.length >= Variable.maxImageUpload) {
+        var listOfFirstItems = listImage.take(Variable.maxImageUpload).toList();
+        listImage.clear();
+        listImage.addAll(listOfFirstItems);
+      }
     });
   }
 
   void removeImage(int index) {
     setState(() {
       listImage.removeAt(index);
-      isMaxImageReached = listImage.length < 5;
+      isMaxImageReached = listImage.length >= Variable.maxImageUpload;
     });
   }
 
@@ -142,19 +148,14 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
   }
 }
 
-/*********************/
-/*********************/
-/*********************/
-/*********************/
-
 class BelowSideFragment extends StatefulWidget {
   final void Function(String) onImageGet;
-  final bool? isMaxImageReached;
+  final bool isMaxImageReached;
 
   const BelowSideFragment({
     super.key,
     required this.onImageGet,
-    this.isMaxImageReached,
+    required this.isMaxImageReached,
   });
 
   @override
@@ -178,30 +179,35 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: actionType == ActionState.normal
-          ? ButtonView(
-              onActionSelected: setAction,
+      child: actionType == ActionState.gallery
+          ? GalleryView(
+              onClose: setAction,
+              onSelectedImage: (imageLists) {
+                for (final image in imageLists) {
+                  onImageGet(image);
+                }
+              },
             )
           : actionType == ActionState.camera
               ? CameraView(
                   onClose: setAction,
                   onCapturedImage: onImageGet,
                 )
-              : GalleryView(
-                  onClose: setAction,
-                  onSelectedImage: (imageLists) {
-                    for (final image in imageLists) {
-                      onImageGet(image);
-                    }
-                  },
-                ),
+              : ButtonView(
+                  onActionSelected: setAction,
+                  isMaxImageReached: widget.isMaxImageReached),
     );
   }
 }
 
 class ButtonView extends StatelessWidget {
   final void Function(ActionState) onActionSelected; // callback
-  const ButtonView({super.key, required this.onActionSelected});
+  final bool isMaxImageReached;
+
+  const ButtonView(
+      {super.key,
+      required this.onActionSelected,
+      required this.isMaxImageReached});
 
   @override
   Widget build(BuildContext context) {
@@ -218,22 +224,27 @@ class ButtonView extends StatelessWidget {
               flex: 1,
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(
-                          255, 3, 70, 125), // button background
-                      foregroundColor: Colors.yellow, // text (and icon) color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      )),
-                  onPressed: () {
-                    onActionSelected(ActionState.camera);
-                  },
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: Colors.yellow,
+                child: Opacity(
+                  opacity: isMaxImageReached ? 0.5 : 1.0,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                            255, 3, 70, 125), // button background
+                        foregroundColor: Colors.yellow, // text (and icon) color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
+                    onPressed: () {
+                      if (!isMaxImageReached) {
+                        onActionSelected(ActionState.camera);
+                      }
+                    },
+                    icon: Icon(
+                      Icons.camera_alt,
+                      color: Colors.yellow,
+                    ),
+                    label: Text(Wording.openCamera),
                   ),
-                  label: Text(Wording.openCamera),
                 ),
               ),
             ),
@@ -247,22 +258,27 @@ class ButtonView extends StatelessWidget {
               flex: 1,
               child: Align(
                 alignment: Alignment.topCenter,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(
-                          255, 123, 15, 7), // button background
-                      foregroundColor: Colors.yellow, // text (and icon) color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      )),
-                  onPressed: () {
-                    onActionSelected(ActionState.gallery);
-                  },
-                  icon: Icon(
-                    Icons.image,
-                    color: Colors.yellow,
+                child: Opacity(
+                  opacity: isMaxImageReached ? 0.5 : 1.0,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                            255, 123, 15, 7), // button background
+                        foregroundColor: Colors.yellow, // text (and icon) color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
+                    onPressed: () {
+                      if (!isMaxImageReached) {
+                        onActionSelected(ActionState.gallery);
+                      }
+                    },
+                    icon: Icon(
+                      Icons.image,
+                      color: Colors.yellow,
+                    ),
+                    label: Text(Wording.openGallery),
                   ),
-                  label: Text(Wording.openGallery),
                 ),
               ),
             ),
