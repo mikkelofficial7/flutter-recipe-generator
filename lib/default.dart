@@ -78,13 +78,10 @@ class DefaultAppState extends State<DefaultApp> {
         color: Colors.black87,
         child: Stack(
           children: [
-            Container(
-                margin: EdgeInsets.only(top: 40),
-                height: 300,
-                child: UpperSideFragment(
-                  listImage: listImage,
-                  onRemoveImage: removeImage,
-                )),
+            UpperSideFragment(
+                listImage: listImage,
+                defaultMarginTop: defaultMarginTop,
+                onRemoveImage: removeImage),
             BelowSideFragment(
                 onImageGet: setImageToList,
                 isMaxImageReached: isMaxImageReached,
@@ -99,9 +96,14 @@ class DefaultAppState extends State<DefaultApp> {
 class UpperSideFragment extends StatefulWidget {
   final void Function(int) onRemoveImage;
   final List<String> listImage;
+  final double defaultMarginTop;
 
-  UpperSideFragment(
-      {super.key, required this.listImage, required this.onRemoveImage});
+  const UpperSideFragment({
+    super.key,
+    required this.onRemoveImage,
+    required this.listImage,
+    required this.defaultMarginTop,
+  });
 
   @override
   State<UpperSideFragment> createState() => UpperSideFragmentState();
@@ -111,7 +113,9 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 40),
       width: double.infinity,
+      height: widget.defaultMarginTop > 100 ? widget.defaultMarginTop - 50 : 0,
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -216,11 +220,11 @@ class BelowSideFragment extends StatefulWidget {
   final double defaultMarginTop;
 
   const BelowSideFragment({
-    Key? key,
+    super.key,
     required this.onImageGet,
     required this.isMaxImageReached,
     required this.defaultMarginTop,
-  }) : super(key: key);
+  });
 
   @override
   State<BelowSideFragment> createState() => BelowSideFragmentState();
@@ -289,6 +293,29 @@ class ButtonView extends StatelessWidget {
                 left: Radius.circular(8), right: Radius.circular(8))),
         child: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.only(top: 40, left: 20, right: 20),
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // centers vertically
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20), // radius
+                    child: Image.asset(
+                      'assets/images/splash.jpg',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(height: 12), // space between image & text
+                  Text(
+                    Wording.appName,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               flex: 1,
               child: Align(

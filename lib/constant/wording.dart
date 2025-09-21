@@ -10,6 +10,7 @@ class Wording {
   static const String permissionRevokedPermanent =
       "Aplikasi ini membutuhkan izin anda, silakan buka halaman pengaturan ⚠️";
 
+  static const String appName = "Generecipe - AI based image extractor recipe";
   static const String or = "atau";
   static const String close = "Tutup";
   static const String upload = "Unggah semua";
