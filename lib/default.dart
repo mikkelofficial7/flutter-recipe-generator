@@ -19,16 +19,19 @@ class DefaultApp extends StatefulWidget {
 
 class DefaultAppState extends State<DefaultApp> {
   final List<String> listImage = [];
+  bool isMaxImageReached = false;
 
   void setImageToList(String imagePath) {
     setState(() {
       listImage.add(imagePath);
+      isMaxImageReached = listImage.length < 5;
     });
   }
 
   void removeImage(int index) {
     setState(() {
       listImage.removeAt(index);
+      isMaxImageReached = listImage.length < 5;
     });
   }
 
@@ -46,8 +49,8 @@ class DefaultAppState extends State<DefaultApp> {
           Expanded(
               flex: 4,
               child: BelowSideFragment(
-                onImageGet: setImageToList,
-              ))
+                  onImageGet: setImageToList,
+                  isMaxImageReached: isMaxImageReached))
         ],
       ),
     );
@@ -69,51 +72,70 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(color: Colors.black87),
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: const Color.fromARGB(241, 134, 133, 133),
             borderRadius: BorderRadius.circular(8)),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.listImage.length,
-          itemBuilder: (context, index) {
-            return Center(
-              child: Stack(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.file(
-                        File(widget.listImage[index]),
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: 120,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    right: 1,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.black54, // semi-transparent background
-                        shape: const CircleBorder(),
-                        padding: const EdgeInsets.all(8),
-                      ),
-                      onPressed: () {
-                        widget.onRemoveImage(index);
-                      },
-                      child: const Icon(Icons.close, color: Colors.white),
-                    ),
-                  ),
-                ],
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(top: 8, left: 8),
+                child: Text(Wording.maxImage,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      fontSize: 16,
+                    )),
               ),
-            );
-          },
+            ),
+            Expanded(
+                flex: 1,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.listImage.length,
+                  itemBuilder: (context, index) {
+                    return Center(
+                      child: Stack(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.file(
+                                File(widget.listImage[index]),
+                                fit: BoxFit.cover,
+                                height: 120,
+                                width: 120,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 10,
+                            right: 1,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors
+                                    .black54, // semi-transparent background
+                                shape: const CircleBorder(),
+                                padding: const EdgeInsets.all(8),
+                              ),
+                              onPressed: () {
+                                widget.onRemoveImage(index);
+                              },
+                              child:
+                                  const Icon(Icons.close, color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ))
+          ],
         ),
       ),
     );
@@ -127,8 +149,13 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
 
 class BelowSideFragment extends StatefulWidget {
   final void Function(String) onImageGet;
+  final bool? isMaxImageReached;
 
-  const BelowSideFragment({super.key, required this.onImageGet});
+  const BelowSideFragment({
+    super.key,
+    required this.onImageGet,
+    this.isMaxImageReached,
+  });
 
   @override
   State<BelowSideFragment> createState() => BelowSideFragmentState();
@@ -522,97 +549,84 @@ class GalleryViewState extends State<GalleryView> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 70),
-            child: imageSelected.isEmpty
-                ? Center(child: Text(Wording.noImageChoose))
-                : GridView.builder(
-                    padding: EdgeInsets.only(top: 10),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                    ),
-                    itemCount: imageSelected.length,
-                    itemBuilder: (context, index) {
-                      return Stack(
-                        children: [
-                          Positioned.fill(
-                            child: Image.file(
-                              imageSelected[index],
-                              fit: BoxFit.cover,
+          Column(
+            children: [
+              Expanded(
+                  flex: 4,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        top: 70, left: 10, right: 10, bottom: 10),
+                    child: imageSelected.isEmpty
+                        ? Center(child: Text(Wording.noImageChoose))
+                        : GridView.builder(
+                            padding: EdgeInsets.only(top: 10),
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 4,
+                              crossAxisSpacing: 4,
                             ),
+                            itemCount: imageSelected.length,
+                            itemBuilder: (context, index) {
+                              return Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: Image.file(
+                                      imageSelected[index],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Positioned(
+                                      right: 0,
+                                      top: 1,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors
+                                              .black54, // semi-transparent background
+                                          shape: const CircleBorder(),
+                                          padding: const EdgeInsets.all(8),
+                                        ),
+                                        onPressed: () {
+                                          removeImage(index);
+                                        },
+                                        child: const Icon(Icons.close,
+                                            color: Colors.white),
+                                      ))
+                                ],
+                              );
+                            },
                           ),
-                          Positioned(
-                              right: 0,
-                              top: 1,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors
-                                      .black54, // semi-transparent background
-                                  shape: const CircleBorder(),
-                                  padding: const EdgeInsets.all(8),
-                                ),
-                                onPressed: () {
-                                  removeImage(index);
-                                },
-                                child: const Icon(Icons.close,
-                                    color: Colors.white),
-                              ))
-                        ],
-                      );
-                    },
-                  ),
-          ),
-          Container(
-            color: Colors.transparent,
-            margin: EdgeInsets.only(bottom: Variable.defaultMarginBottom),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black87, // button background
-                    foregroundColor: Colors.white70, // text (and icon) color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    )),
-                onPressed: () {
-                  pickImageGallery();
-                },
-                icon: Icon(
-                  Icons.image,
-                  color: Colors.white70,
-                ),
-                label: Text(Wording.openGalleryShow),
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(15),
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
-                  ),
-                  backgroundColor: Colors.white, // button background
-                  foregroundColor: Colors.red, // text (and icon) color
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
                   )),
-              onPressed: () {
-                widget.onClose(ActionState.normal);
-              },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.red,
-              ),
-              label: Text(Wording.close),
-            ),
+              Expanded(
+                  child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding:
+                      EdgeInsets.only(bottom: Variable.defaultMarginBottom),
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black87, // button background
+                        foregroundColor:
+                            Colors.white70, // text (and icon) color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
+                    onPressed: () {
+                      pickImageGallery();
+                    },
+                    icon: Icon(
+                      Icons.image,
+                      color: Colors.white70,
+                    ),
+                    label: Text(Wording.openGalleryShow),
+                  ),
+                ),
+              ))
+            ],
           ),
           Align(
-            alignment: Alignment.topRight,
+            alignment: Alignment.topLeft,
             child: Container(
               margin: EdgeInsets.all(15),
               child: ElevatedButton.icon(
@@ -622,22 +636,51 @@ class GalleryViewState extends State<GalleryView> {
                       vertical: 10,
                     ),
                     backgroundColor: Colors.white, // button background
-                    foregroundColor: Colors.blueAccent, // text (and icon) color
+                    foregroundColor: Colors.red, // text (and icon) color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     )),
                 onPressed: () {
-                  widget.onSelectedImage(
-                      imageSelected.map((file) => file.path).toList());
                   widget.onClose(ActionState.normal);
                 },
                 icon: Icon(
-                  Icons.file_upload,
-                  color: Colors.blueAccent,
+                  Icons.arrow_back_ios,
+                  color: Colors.red,
                 ),
-                label: Text(Wording.upload),
+                label: Text(Wording.close),
               ),
             ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: imageSelected.isEmpty
+                ? Container()
+                : Container(
+                    margin: EdgeInsets.all(15),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
+                          ),
+                          backgroundColor: Colors.white, // button background
+                          foregroundColor:
+                              Colors.blueAccent, // text (and icon) color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )),
+                      onPressed: () {
+                        widget.onSelectedImage(
+                            imageSelected.map((file) => file.path).toList());
+                        widget.onClose(ActionState.normal);
+                      },
+                      icon: Icon(
+                        Icons.file_upload,
+                        color: Colors.blueAccent,
+                      ),
+                      label: Text(Wording.upload),
+                    ),
+                  ),
           )
         ],
       ),
