@@ -4,7 +4,7 @@ A Flutter app for generating a recipe based on several leftover food image. Powe
 
 Download .apk (Android) demo [here](https://github.com/mikkelofficial7/flutter-recipe-generator/raw/refs/heads/main/demo-testing.apk)
 
-<img src="https://github.com/mikkelofficial7/flutter-recipe-generator/blob/master/demo.png" alt="Project screenshot" width="700" />
+<img src="https://github.com/mikkelofficial7/flutter-recipe-generator/blob/main/demo.png" alt="Project screenshot" width="700" />
 
 `pubspec.yaml` lists:
 ```
