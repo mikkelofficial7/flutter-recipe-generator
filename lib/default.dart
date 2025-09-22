@@ -525,156 +525,170 @@ class CameraViewState extends State<CameraView> {
     }
 
     return isTakePicture == false
-        ? Scaffold(
-            body: Stack(
-              children: [
-                SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: CameraPreview(_controller!),
-                ),
-                Container(
-                  color: Colors.transparent,
-                  height: double.infinity,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: Variable.defaultMarginBottom),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            takePicture();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 22, 22, 22),
-                            padding: const EdgeInsets.all(15),
-                            shape: const CircleBorder(), // makes it circular
+        ? WillPopScope(
+            onWillPop: () async {
+              widget.onClose(ActionState.normal);
+              return false;
+            },
+            child: Scaffold(
+              body: Stack(
+                children: [
+                  SizedBox(
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: CameraPreview(_controller!),
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    height: double.infinity,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: Variable.defaultMarginBottom),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              takePicture();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 22, 22, 22),
+                              padding: const EdgeInsets.all(15),
+                              shape: const CircleBorder(), // makes it circular
+                            ),
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.white70,
+                              size: 45,
+                            )),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(15),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
                           ),
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white70,
-                            size: 45,
+                          backgroundColor: Colors.white, // button background
+                          foregroundColor: Colors.red, // text (and icon) color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           )),
+                      onPressed: () {
+                        widget.onClose(ActionState.normal);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.red,
+                      ),
+                      label: Text(Wording.close),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(15),
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 10,
-                        ),
-                        backgroundColor: Colors.white, // button background
-                        foregroundColor: Colors.red, // text (and icon) color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                    onPressed: () {
-                      widget.onClose(ActionState.normal);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.red,
-                    ),
-                    label: Text(Wording.close),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           )
-        : Scaffold(
-            body: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Image.file(File(activeImagePath), fit: BoxFit.cover),
-                ),
-                Container(
-                  margin: EdgeInsets.all(15),
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 10,
-                        ),
-                        backgroundColor: Colors.white, // button background
-                        foregroundColor: Colors.red, // text (and icon) color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                    onPressed: () {
-                      widget.onClose(ActionState.normal);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.red,
-                    ),
-                    label: Text(Wording.close),
+        : WillPopScope(
+            onWillPop: () async {
+              widget.onClose(ActionState.normal);
+              return false;
+            },
+            child: Scaffold(
+              body: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Image.file(File(activeImagePath), fit: BoxFit.cover),
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  margin: EdgeInsets.only(bottom: Variable.defaultMarginBottom),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 10,
-                                  ),
-                                  backgroundColor:
-                                      Colors.white, // button background
-                                  foregroundColor: const Color.fromARGB(255,
-                                      178, 20, 20), // text (and icon) color
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  )),
-                              onPressed: () {
-                                cancelPicture();
-                              },
-                              child: Icon(Icons.close,
-                                  color: const Color.fromARGB(255, 178, 20, 20),
-                                  size: 30)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 10,
-                                  ),
-                                  backgroundColor:
-                                      Colors.white, // button background
-                                  foregroundColor: const Color.fromARGB(
-                                      255, 16, 111, 7), // text (and icon) color
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  )),
-                              onPressed: () {
-                                addPictureToList();
-                              },
-                              child: Icon(
-                                Icons.check,
-                                color: const Color.fromARGB(255, 16, 111, 7),
-                                size: 30,
-                              )),
-                        )
-                      ],
+                  Container(
+                    margin: EdgeInsets.all(15),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
+                          ),
+                          backgroundColor: Colors.white, // button background
+                          foregroundColor: Colors.red, // text (and icon) color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )),
+                      onPressed: () {
+                        widget.onClose(ActionState.normal);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.red,
+                      ),
+                      label: Text(Wording.close),
                     ),
                   ),
-                )
-              ],
+                  Container(
+                    width: double.infinity,
+                    margin:
+                        EdgeInsets.only(bottom: Variable.defaultMarginBottom),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
+                                    ),
+                                    backgroundColor:
+                                        Colors.white, // button background
+                                    foregroundColor: const Color.fromARGB(255,
+                                        178, 20, 20), // text (and icon) color
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    )),
+                                onPressed: () {
+                                  cancelPicture();
+                                },
+                                child: Icon(Icons.close,
+                                    color:
+                                        const Color.fromARGB(255, 178, 20, 20),
+                                    size: 30)),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
+                                    ),
+                                    backgroundColor:
+                                        Colors.white, // button background
+                                    foregroundColor: const Color.fromARGB(255,
+                                        16, 111, 7), // text (and icon) color
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    )),
+                                onPressed: () {
+                                  addPictureToList();
+                                },
+                                child: Icon(
+                                  Icons.check,
+                                  color: const Color.fromARGB(255, 16, 111, 7),
+                                  size: 30,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
   }
@@ -723,143 +737,149 @@ class GalleryViewState extends State<GalleryView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                  flex: 4,
-                  child: Container(
-                    margin: EdgeInsets.only(
-                        top: 70, left: 10, right: 10, bottom: 10),
-                    child: imageSelected.isEmpty
-                        ? Center(child: Text(Wording.noImageChoose))
-                        : GridView.builder(
-                            padding: EdgeInsets.only(top: 10),
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 4,
-                              crossAxisSpacing: 4,
-                            ),
-                            itemCount: imageSelected.length,
-                            itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
-                                  Positioned.fill(
-                                    child: Image.file(
-                                      imageSelected[index],
-                                      fit: BoxFit.cover,
+    return WillPopScope(
+      onWillPop: () async {
+        widget.onClose(ActionState.normal);
+        return false;
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                Expanded(
+                    flex: 4,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          top: 70, left: 10, right: 10, bottom: 10),
+                      child: imageSelected.isEmpty
+                          ? Center(child: Text(Wording.noImageChoose))
+                          : GridView.builder(
+                              padding: EdgeInsets.only(top: 10),
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 4,
+                                crossAxisSpacing: 4,
+                              ),
+                              itemCount: imageSelected.length,
+                              itemBuilder: (context, index) {
+                                return Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: Image.file(
+                                        imageSelected[index],
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                  Positioned(
-                                      right: 0,
-                                      top: 1,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors
-                                              .black54, // semi-transparent background
-                                          shape: const CircleBorder(),
-                                          padding: const EdgeInsets.all(8),
-                                        ),
-                                        onPressed: () {
-                                          removeImage(index);
-                                        },
-                                        child: const Icon(Icons.close,
-                                            color: Colors.white),
-                                      ))
-                                ],
-                              );
-                            },
-                          ),
-                  )),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(bottom: Variable.defaultMarginBottom),
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black87, // button background
-                        foregroundColor:
-                            Colors.white70, // text (and icon) color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                    onPressed: () {
-                      pickImageGallery();
-                    },
-                    icon: Icon(
-                      Icons.image,
-                      color: Colors.white70,
-                    ),
-                    label: Text(Wording.openGalleryShow),
-                  ),
-                ),
-              ))
-            ],
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Container(
-              margin: EdgeInsets.all(15),
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
-                    ),
-                    backgroundColor: Colors.white, // button background
-                    foregroundColor: Colors.red, // text (and icon) color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                                    Positioned(
+                                        right: 0,
+                                        top: 1,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors
+                                                .black54, // semi-transparent background
+                                            shape: const CircleBorder(),
+                                            padding: const EdgeInsets.all(8),
+                                          ),
+                                          onPressed: () {
+                                            removeImage(index);
+                                          },
+                                          child: const Icon(Icons.close,
+                                              color: Colors.white),
+                                        ))
+                                  ],
+                                );
+                              },
+                            ),
                     )),
-                onPressed: () {
-                  widget.onClose(ActionState.normal);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.red,
-                ),
-                label: Text(Wording.close),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: imageSelected.isEmpty
-                ? Container()
-                : Container(
-                    margin: EdgeInsets.all(15),
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(bottom: Variable.defaultMarginBottom),
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 10,
-                          ),
-                          backgroundColor: Colors.white, // button background
+                          backgroundColor: Colors.black87, // button background
                           foregroundColor:
-                              Colors.blueAccent, // text (and icon) color
+                              Colors.white70, // text (and icon) color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           )),
                       onPressed: () {
-                        widget.onSelectedImage(
-                            imageSelected.map((file) => file.path).toList());
-                        widget.onClose(ActionState.normal);
+                        pickImageGallery();
                       },
                       icon: Icon(
-                        Icons.file_upload,
-                        color: Colors.blueAccent,
+                        Icons.image,
+                        color: Colors.white70,
                       ),
-                      label: Text(Wording.upload),
+                      label: Text(Wording.openGalleryShow),
                     ),
                   ),
-          )
-        ],
+                ))
+              ],
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                margin: EdgeInsets.all(15),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      backgroundColor: Colors.white, // button background
+                      foregroundColor: Colors.red, // text (and icon) color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      )),
+                  onPressed: () {
+                    widget.onClose(ActionState.normal);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.red,
+                  ),
+                  label: Text(Wording.close),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: imageSelected.isEmpty
+                  ? Container()
+                  : Container(
+                      margin: EdgeInsets.all(15),
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
+                            backgroundColor: Colors.white, // button background
+                            foregroundColor:
+                                Colors.blueAccent, // text (and icon) color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            )),
+                        onPressed: () {
+                          widget.onSelectedImage(
+                              imageSelected.map((file) => file.path).toList());
+                          widget.onClose(ActionState.normal);
+                        },
+                        icon: Icon(
+                          Icons.file_upload,
+                          color: Colors.blueAccent,
+                        ),
+                        label: Text(Wording.upload),
+                      ),
+                    ),
+            )
+          ],
+        ),
       ),
     );
   }
