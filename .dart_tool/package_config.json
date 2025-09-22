@@ -164,6 +164,12 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "flutter_markdown",
+      "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/flutter_markdown-0.6.23",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "flutter_native_splash",
       "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/flutter_native_splash-2.4.4",
       "packageUri": "lib/",
@@ -188,10 +194,28 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "fluttertoast",
+      "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/fluttertoast-8.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "html",
       "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/html-0.15.6",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/http-0.13.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/http_parser-4.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "image",
@@ -228,6 +252,12 @@
       "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/lints-5.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.6"
+    },
+    {
+      "name": "markdown",
+      "rootUri": "file:///Users/ewidev6/.pub-cache/hosted/pub.dev/markdown-7.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "matcher",
@@ -464,7 +494,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-09-19T08:44:40.907229Z",
+  "generated": "2025-09-22T01:22:26.624219Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/ewidev6/Documents/flutter",

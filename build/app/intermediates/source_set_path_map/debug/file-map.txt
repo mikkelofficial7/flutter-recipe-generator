@@ -35,5 +35,6 @@ com.example.flutter_recipe_generator.app-packaged_res-33 /Users/ewidev6/Desktop/
 com.example.flutter_recipe_generator.app-packaged_res-34 /Users/ewidev6/Desktop/flutter-recipe-generator/build/file_picker/intermediates/packaged_res/debug
 com.example.flutter_recipe_generator.app-packaged_res-35 /Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_native_splash/intermediates/packaged_res/debug
 com.example.flutter_recipe_generator.app-packaged_res-36 /Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_plugin_android_lifecycle/intermediates/packaged_res/debug
-com.example.flutter_recipe_generator.app-packaged_res-37 /Users/ewidev6/Desktop/flutter-recipe-generator/build/path_provider_android/intermediates/packaged_res/debug
-com.example.flutter_recipe_generator.app-packaged_res-38 /Users/ewidev6/Desktop/flutter-recipe-generator/build/permission_handler_android/intermediates/packaged_res/debug
+com.example.flutter_recipe_generator.app-packaged_res-37 /Users/ewidev6/Desktop/flutter-recipe-generator/build/fluttertoast/intermediates/packaged_res/debug
+com.example.flutter_recipe_generator.app-packaged_res-38 /Users/ewidev6/Desktop/flutter-recipe-generator/build/path_provider_android/intermediates/packaged_res/debug
+com.example.flutter_recipe_generator.app-packaged_res-39 /Users/ewidev6/Desktop/flutter-recipe-generator/build/permission_handler_android/intermediates/packaged_res/debug
