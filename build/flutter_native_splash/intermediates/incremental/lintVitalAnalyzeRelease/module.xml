@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="/Users/ewidev6/.pub-cache/hosted/pub.dev/flutter_native_splash-2.4.4/android"
+    name=":flutter_native_splash"
+    type="LIBRARY"
+    maven="net.jonhanson.flutter_native_splash:flutter_native_splash:"
+    agpVersion="8.2.1"
+    buildFolder="/Users/ewidev6/Desktop/flutter-recipe-generator/build/flutter_native_splash"
+    bootClassPath="/Users/ewidev6/Library/Android/sdk/platforms/android-31/android.jar:/Users/ewidev6/Library/Android/sdk/build-tools/34.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-31"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>
