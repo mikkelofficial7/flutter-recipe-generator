@@ -372,9 +372,10 @@ class ButtonView extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: 12), // space between image & text
+                  SizedBox(height: 12),
                   Text(
                     Wording.appName,
+                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
