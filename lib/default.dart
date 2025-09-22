@@ -349,102 +349,145 @@ class ButtonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.black87),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            borderRadius: BorderRadius.horizontal(
-                left: Radius.circular(8), right: Radius.circular(8))),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-              child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.center, // centers vertically
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20), // radius
-                    child: Image.asset(
-                      'assets/images/splash.jpg',
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    Wording.appName,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+      decoration: BoxDecoration(color: Colors.black54),
+      child: Stack(
+        children: [
+          Opacity(
+            opacity: 0.2,
+            child: Image.asset(
+              'assets/images/bg.jpeg',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
             ),
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Opacity(
-                  opacity: isMaxImageReached ? 0.5 : 1.0,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(
-                            255, 3, 70, 125), // button background
-                        foregroundColor: Colors.yellow, // text (and icon) color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                    onPressed: () {
-                      if (!isMaxImageReached) {
-                        onActionSelected(ActionState.camera);
-                      }
-                    },
-                    icon: Icon(
-                      Icons.camera_alt,
-                      color: Colors.yellow,
-                    ),
-                    label: Text(Wording.openCamera),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 40, left: 20, right: 20),
+                  child: Column(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center, // centers vertically
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20), // radius
+                        child: Image.asset(
+                          'assets/images/app_icon.png',
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        Wording.appName,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        Wording.appNameTagline,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-                flex: 0,
-                child: Text(
-                  Wording.or,
-                  style: TextStyle(color: Colors.white70),
-                )),
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Opacity(
-                  opacity: isMaxImageReached ? 0.5 : 1.0,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(
-                            255, 123, 15, 7), // button background
-                        foregroundColor: Colors.yellow, // text (and icon) color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                    onPressed: () {
-                      if (!isMaxImageReached) {
-                        onActionSelected(ActionState.gallery);
-                      }
-                    },
-                    icon: Icon(
-                      Icons.image,
-                      color: Colors.yellow,
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Opacity(
+                      opacity: isMaxImageReached ? 0.5 : 1.0,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(
+                                255, 3, 70, 125), // button background
+                            foregroundColor:
+                                Colors.yellow, // text (and icon) color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            )),
+                        onPressed: () {
+                          if (!isMaxImageReached) {
+                            onActionSelected(ActionState.camera);
+                          }
+                        },
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: Colors.yellow,
+                        ),
+                        label: Text(Wording.openCamera),
+                      ),
                     ),
-                    label: Text(Wording.openGallery),
                   ),
                 ),
-              ),
+                Expanded(
+                    flex: 0,
+                    child: Text(
+                      Wording.or,
+                      style: TextStyle(color: Colors.white70),
+                    )),
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Opacity(
+                      opacity: isMaxImageReached ? 0.5 : 1.0,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(
+                                255, 123, 15, 7), // button background
+                            foregroundColor:
+                                Colors.yellow, // text (and icon) color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            )),
+                        onPressed: () {
+                          if (!isMaxImageReached) {
+                            onActionSelected(ActionState.gallery);
+                          }
+                        },
+                        icon: Icon(
+                          Icons.image,
+                          color: Colors.yellow,
+                        ),
+                        label: Text(Wording.openGallery),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: Variable.defaultMarginBottom + 10,
+                            right: 20),
+                        child: Text(
+                          Wording.poweredGemini,
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: const Color.fromARGB(255, 197, 181, 35),
+                          ),
+                        ),
+                      ),
+                    ))
+              ],
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
