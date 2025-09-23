@@ -296,6 +296,21 @@ class BelowSideFragment extends StatefulWidget {
 
 class BelowSideFragmentState extends State<BelowSideFragment> {
   ActionState actionType = ActionState.normal;
+  var defaultMarginBottom = Variable.defaultMarginBottom;
+
+  @override
+  void initState() {
+    super.initState();
+    checkAndroidVersion();
+  }
+
+  Future<void> checkAndroidVersion() async {
+    var sdkVersion = await detectAndroidSdk();
+
+    if (sdkVersion >= 33) {
+      defaultMarginBottom += 10;
+    }
+  }
 
   void setAction(ActionState action) {
     setState(() {
@@ -331,6 +346,7 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
                   )
                 : ButtonView(
                     onActionSelected: setAction,
+                    defaultMarginBottom: defaultMarginBottom,
                     isMaxImageReached: widget.isMaxImageReached),
       ),
     );
@@ -340,11 +356,13 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
 class ButtonView extends StatelessWidget {
   final void Function(ActionState) onActionSelected; // callback
   final bool isMaxImageReached;
+  final double defaultMarginBottom;
 
   const ButtonView(
       {super.key,
       required this.onActionSelected,
-      required this.isMaxImageReached});
+      required this.isMaxImageReached,
+      required this.defaultMarginBottom});
 
   @override
   Widget build(BuildContext context) {
@@ -473,8 +491,7 @@ class ButtonView extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            bottom: Variable.defaultMarginBottom + 10,
-                            right: 20),
+                            bottom: defaultMarginBottom, right: 10),
                         child: Text(
                           Wording.poweredGemini,
                           style: TextStyle(

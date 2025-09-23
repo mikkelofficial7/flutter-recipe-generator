@@ -1,0 +1,1 @@
+ /Users/ewidev6/Desktop/flutter-recipe-generator/.dart_tool/flutter_build/b3772aaae17d374fb591feb99b311233/native_assets.yaml: 
