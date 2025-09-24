@@ -1,6 +1,6 @@
 # Generecipe - Image based recipe generator from leftover food raw material
 
-A Flutter app for generating a recipe based on several leftover food image. Powered by `Gemini 2.0 flash` AI integrated.
+A Flutter app for generating a recipe based on several leftover food image (capture or upload images and let Gemini formulas new recipe). Powered by `Gemini 2.0 flash` AI integrated.
 
 Download .apk (Android) demo [here](https://github.com/mikkelofficial7/flutter-recipe-generator/raw/refs/heads/main/demo-testing.apk)
 
