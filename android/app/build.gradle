@@ -68,3 +68,8 @@ configurations.all {
         force 'net.bytebuddy:byte-buddy:1.12.22'
     }
 }
+
+// storePassword=generecipe
+// keyPassword=generecipe
+// keyAlias=generecipe
+// storeFile=keystore.jks
