@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_generator/recipe.dart';
+import 'package:flutter_recipe_generator/util/navigation_gesture.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -23,11 +24,21 @@ class DefaultAppState extends State<DefaultApp> {
   final List<String> listImage = [];
   bool isMaxImageReached = false;
   late double defaultMarginTop;
+  late double defaultMarginBottom;
+  var isPlatformAndroid = Platform.isAndroid;
+  bool isGesture = false;
 
   @override
   void initState() {
     super.initState();
     runAnimation();
+  }
+
+  void checkNavigationGestureMode() async {
+    setState(() async {
+      isGesture = await ModeNavigation.isGestureNavigationActive();
+      defaultMarginBottom = isGesture && isPlatformAndroid ? 40 : 10;
+    });
   }
 
   void runAnimation() {
