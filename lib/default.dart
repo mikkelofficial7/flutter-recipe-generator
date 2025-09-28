@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_recipe_generator/recipe.dart';
 import 'package:flutter_recipe_generator/util/navigation_gesture.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -24,20 +25,25 @@ class DefaultAppState extends State<DefaultApp> {
   final List<String> listImage = [];
   bool isMaxImageReached = false;
   late double defaultMarginTop;
-  late double defaultMarginBottom;
+  late double defaultMarginBottom = Variable.defaultMarginBottom;
   var isPlatformAndroid = Platform.isAndroid;
-  bool isGesture = false;
+  var _channel = MethodChannel("navigation_mode");
 
   @override
   void initState() {
     super.initState();
+    checkNavigationGestureMode();
     runAnimation();
   }
 
   void checkNavigationGestureMode() async {
-    setState(() async {
-      isGesture = await ModeNavigation.isGestureNavigationActive();
-      defaultMarginBottom = isGesture && isPlatformAndroid ? 40 : 10;
+    var sdkVersion = await detectAndroidSdk();
+    double marginBottom = isPlatformAndroid && sdkVersion >= 35
+        ? Variable.defaultMarginBottom
+        : Variable.defaultMarginBottomSmall;
+
+    setState(() {
+      defaultMarginBottom = marginBottom;
     });
   }
 
@@ -97,6 +103,7 @@ class DefaultAppState extends State<DefaultApp> {
             BelowSideFragment(
                 onImageGet: setImageToList,
                 isMaxImageReached: isMaxImageReached,
+                defaultMarginBottom: defaultMarginBottom,
                 defaultMarginTop: defaultMarginTop)
           ],
         ),
@@ -155,6 +162,12 @@ class UpperSideFragmentState extends State<UpperSideFragment> {
         if (kDebugMode) {
           print("❌ Failed: $error");
         }
+        setState(() {
+          isLoading = false;
+          canClickSubmit = true;
+        });
+        var response = "Sepertinya terjadi kesalahan, $error";
+        navigateRecipePage(response);
       },
     );
   }
@@ -293,12 +306,14 @@ class BelowSideFragment extends StatefulWidget {
   final void Function(String) onImageGet;
   final bool isMaxImageReached;
   final double defaultMarginTop;
+  final double defaultMarginBottom;
 
   const BelowSideFragment({
     super.key,
     required this.onImageGet,
     required this.isMaxImageReached,
     required this.defaultMarginTop,
+    required this.defaultMarginBottom,
   });
 
   @override
@@ -307,21 +322,6 @@ class BelowSideFragment extends StatefulWidget {
 
 class BelowSideFragmentState extends State<BelowSideFragment> {
   ActionState actionType = ActionState.normal;
-  var defaultMarginBottom = Variable.defaultMarginBottom;
-
-  @override
-  void initState() {
-    super.initState();
-    checkAndroidVersion();
-  }
-
-  Future<void> checkAndroidVersion() async {
-    var sdkVersion = await detectAndroidSdk();
-
-    if (sdkVersion >= 33) {
-      defaultMarginBottom += 10;
-    }
-  }
 
   void setAction(ActionState action) {
     setState(() {
@@ -357,7 +357,7 @@ class BelowSideFragmentState extends State<BelowSideFragment> {
                   )
                 : ButtonView(
                     onActionSelected: setAction,
-                    defaultMarginBottom: defaultMarginBottom,
+                    defaultMarginBottom: widget.defaultMarginBottom,
                     isMaxImageReached: widget.isMaxImageReached),
       ),
     );

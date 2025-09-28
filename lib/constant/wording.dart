@@ -29,5 +29,6 @@ class Wording {
 
 class Variable {
   static const double defaultMarginBottom = 50;
+  static const double defaultMarginBottomSmall = 15;
   static const int maxImageUpload = 5;
 }
